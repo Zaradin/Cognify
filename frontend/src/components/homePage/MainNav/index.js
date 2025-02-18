@@ -15,8 +15,11 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import brainImage from "../../../images/Brain.svg";
+import { useNavigate } from "react-router-dom";
 
 const MainNav = () => {
+    const navigate = useNavigate();
+
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const toggleDrawer = (open) => {
@@ -77,6 +80,11 @@ const MainNav = () => {
                                                 backgroundColor: "transparent",
                                                 color: "#000",
                                             },
+                                        }}
+                                        onClick={() => {
+                                            if (item === "HOME") {
+                                                navigate("/"); // Navigate to home
+                                            }
                                         }}
                                     >
                                         {item}

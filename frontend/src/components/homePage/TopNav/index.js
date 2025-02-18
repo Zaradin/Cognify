@@ -7,8 +7,11 @@ import {
     Container,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import { useNavigate } from "react-router-dom";
 
 const TopNav = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             <Box>
@@ -35,6 +38,7 @@ const TopNav = () => {
                                         textTransform: "none",
                                         fontSize: "1rem",
                                     }}
+                                    onClick={() => navigate("/login")}
                                 >
                                     Log In
                                 </Button>
