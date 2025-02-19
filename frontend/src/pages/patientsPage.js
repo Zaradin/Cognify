@@ -11,6 +11,7 @@ import {
     TableHead,
     TableRow,
     Paper,
+    Divider,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -112,7 +113,6 @@ const PatientsPage = () => {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginBottom: 1,
                 }}
             >
                 <Typography variant="h4">Patients</Typography>
@@ -124,6 +124,9 @@ const PatientsPage = () => {
                 >
                     Create Patient
                 </Button>
+            </Box>
+            <Box sx={{ mb: 4 }}>
+                <Divider />
             </Box>
 
             {/* Search and Filter Box */}
