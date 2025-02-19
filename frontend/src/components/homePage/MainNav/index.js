@@ -43,7 +43,7 @@ const MainNav = () => {
                             <Box
                                 component="img"
                                 src={brainImage}
-                                alt="FNNDSC Logo"
+                                alt="Cognify Logo"
                                 sx={{ height: 60, mr: 1 }}
                             />
                             <Typography
