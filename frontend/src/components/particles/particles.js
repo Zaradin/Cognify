@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Particles from "@tsparticles/react";
 import { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim"; // Import only the slim version to reduce bundle size
+import { loadSlim } from "@tsparticles/slim";
 
 const ParticlesComponent = () => {
     const [init, setInit] = useState(false);
@@ -86,13 +86,14 @@ const ParticlesComponent = () => {
                                     width: 0,
                                     color: "#000000",
                                 },
-                                polygon: {
-                                    sides: 5,
-                                },
-                                image: {
-                                    src: "img/github.svg",
-                                    width: 100,
-                                    height: 100,
+                            },
+                            rotate: {
+                                value: { min: 0, max: 360 },
+                                random: { enable: true, minimumValue: 0 },
+                                animation: {
+                                    enable: true,
+                                    speed: 10,
+                                    sync: false,
                                 },
                             },
                             opacity: {
@@ -106,25 +107,29 @@ const ParticlesComponent = () => {
                                 },
                             },
                             size: {
-                                value: 3,
-                                random: true,
+                                value: { min: 1, max: 4.5 },
+                                random: {
+                                    enable: true,
+                                    minimumValue: 1,
+                                },
                                 animation: {
                                     enable: true,
                                     speed: 4,
                                     minimumValue: 1,
-                                    sync: true,
+                                    sync: false,
                                 },
                             },
+
                             links: {
                                 enable: true,
-                                distance: 189.3954,
+                                distance: 180,
                                 color: "#b3b3b3",
                                 opacity: 0.5,
                                 width: 1.5783,
                             },
                             move: {
                                 enable: true,
-                                speed: 4,
+                                speed: 3,
                                 direction: "none",
                                 random: true,
                                 straight: false,
