@@ -1,11 +1,9 @@
-import AppNav from "../components/appNav";
 import React, { useState } from "react";
 import {
     Box,
     TextField,
     Button,
     Typography,
-    Toolbar,
     Table,
     TableBody,
     TableCell,
@@ -13,10 +11,8 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Divider,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import DynamicBreadcrumbs from "../components/breadcrumbs";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 const PatientsPage = () => {
@@ -110,227 +106,209 @@ const PatientsPage = () => {
     });
 
     return (
-        <Box sx={{ display: "flex" }}>
-            <AppNav />
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <Toolbar />
-                <DynamicBreadcrumbs />
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginBottom: 1,
-                    }}
+        <Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: 1,
+                }}
+            >
+                <Typography variant="h4">Patients</Typography>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    sx={{ textTransform: "none" }}
                 >
-                    <Typography variant="h4">Patients</Typography>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        sx={{ textTransform: "none" }}
-                    >
-                        Create Patient
-                    </Button>
-                </Box>
+                    Create Patient
+                </Button>
+            </Box>
 
-                <Divider sx={{ marginBottom: 4 }} />
-
-                {/* Search and Filter Box */}
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        border: "1px solid #ddd",
-                        borderRadius: 1,
-                        p: 2,
-                        marginBottom: 3,
+            {/* Search and Filter Box */}
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    border: "1px solid #ddd",
+                    borderRadius: 1,
+                    p: 2,
+                    marginBottom: 3,
+                }}
+            >
+                <TextField
+                    label="Patient ID"
+                    variant="outlined"
+                    size="small"
+                    name="patientId"
+                    value={searchParams.patientId}
+                    onChange={handleSearchChange}
+                    sx={{ marginRight: 2 }}
+                />
+                <TextField
+                    label="Patient Name"
+                    variant="outlined"
+                    size="small"
+                    name="patientName"
+                    value={searchParams.patientName}
+                    onChange={handleSearchChange}
+                    sx={{ marginRight: 2 }}
+                />
+                <TextField
+                    label="DOB"
+                    variant="outlined"
+                    size="small"
+                    type="date"
+                    name="dob"
+                    value={searchParams.dob}
+                    onChange={handleSearchChange}
+                    sx={{ marginRight: 2 }}
+                    InputLabelProps={{
+                        shrink: true,
                     }}
+                />
+                <TextField
+                    label="Address"
+                    variant="outlined"
+                    size="small"
+                    name="address"
+                    value={searchParams.address}
+                    onChange={handleSearchChange}
+                    sx={{ marginRight: 2 }}
+                />
+                <TextField
+                    label="Doctor Name"
+                    variant="outlined"
+                    size="small"
+                    name="doctorName"
+                    value={searchParams.doctorName}
+                    onChange={handleSearchChange}
+                    sx={{ marginRight: 2 }}
+                />
+                <TextField
+                    label="Diagnosis"
+                    variant="outlined"
+                    size="small"
+                    name="diagnosis"
+                    value={searchParams.diagnosis}
+                    onChange={handleSearchChange}
+                    sx={{ marginRight: 2 }}
+                />
+                <TextField
+                    label="From Date"
+                    variant="outlined"
+                    size="small"
+                    type="date"
+                    name="fromDate"
+                    value={searchParams.fromDate}
+                    onChange={handleSearchChange}
+                    sx={{ marginRight: 2 }}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                />
+                <TextField
+                    label="To Date"
+                    variant="outlined"
+                    size="small"
+                    type="date"
+                    name="toDate"
+                    value={searchParams.toDate}
+                    onChange={handleSearchChange}
+                    sx={{ marginRight: 2 }}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                />
+                <Button
+                    variant="outlined"
+                    color="black"
+                    onClick={handleResetButton}
+                    sx={{ marginRight: 2 }}
                 >
-                    <TextField
-                        label="Patient ID"
-                        variant="outlined"
-                        size="small"
-                        name="patientId"
-                        value={searchParams.patientId}
-                        onChange={handleSearchChange}
-                        sx={{ marginRight: 2 }}
-                    />
-                    <TextField
-                        label="Patient Name"
-                        variant="outlined"
-                        size="small"
-                        name="patientName"
-                        value={searchParams.patientName}
-                        onChange={handleSearchChange}
-                        sx={{ marginRight: 2 }}
-                    />
-                    <TextField
-                        label="DOB"
-                        variant="outlined"
-                        size="small"
-                        type="date"
-                        name="dob"
-                        value={searchParams.dob}
-                        onChange={handleSearchChange}
-                        sx={{ marginRight: 2 }}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <TextField
-                        label="Address"
-                        variant="outlined"
-                        size="small"
-                        name="address"
-                        value={searchParams.address}
-                        onChange={handleSearchChange}
-                        sx={{ marginRight: 2 }}
-                    />
-                    <TextField
-                        label="Doctor Name"
-                        variant="outlined"
-                        size="small"
-                        name="doctorName"
-                        value={searchParams.doctorName}
-                        onChange={handleSearchChange}
-                        sx={{ marginRight: 2 }}
-                    />
-                    <TextField
-                        label="Diagnosis"
-                        variant="outlined"
-                        size="small"
-                        name="diagnosis"
-                        value={searchParams.diagnosis}
-                        onChange={handleSearchChange}
-                        sx={{ marginRight: 2 }}
-                    />
-                    <TextField
-                        label="From Date"
-                        variant="outlined"
-                        size="small"
-                        type="date"
-                        name="fromDate"
-                        value={searchParams.fromDate}
-                        onChange={handleSearchChange}
-                        sx={{ marginRight: 2 }}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <TextField
-                        label="To Date"
-                        variant="outlined"
-                        size="small"
-                        type="date"
-                        name="toDate"
-                        value={searchParams.toDate}
-                        onChange={handleSearchChange}
-                        sx={{ marginRight: 2 }}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <Button
-                        variant="outlined"
-                        color="black"
-                        onClick={handleResetButton}
-                        sx={{ marginRight: 2 }}
-                    >
-                        Reset
-                    </Button>
-                    <Button variant="contained" color="primary">
-                        Search
-                    </Button>
-                </Box>
+                    Reset
+                </Button>
+                <Button variant="contained" color="primary">
+                    Search
+                </Button>
+            </Box>
 
-                <Box sx={{ border: "1px solid #ddd", borderRadius: 1, p: 2 }}>
-                    <TableContainer component={Paper}>
-                        <Table
-                            sx={{ minWidth: 650 }}
-                            aria-label="patient table"
-                        >
-                            <TableHead>
-                                <TableRow>
+            <Box sx={{ border: "1px solid #ddd", borderRadius: 1, p: 2 }}>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="patient table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
+                                    <strong>Patient ID</strong>
+                                </TableCell>
+                                <TableCell>
+                                    <strong>Patient Name</strong>
+                                </TableCell>
+                                <TableCell>
+                                    <strong>DOB</strong>
+                                </TableCell>
+                                <TableCell>
+                                    <strong>Address</strong>
+                                </TableCell>
+                                <TableCell>
+                                    <strong>Date (Entered)</strong>
+                                </TableCell>
+                                <TableCell>
+                                    <strong>Doctor Name</strong>
+                                </TableCell>
+                                <TableCell>
+                                    <strong>Diagnosis</strong>
+                                </TableCell>
+                                <TableCell>
+                                    <strong>View</strong>
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredPatients.map((patient, index) => (
+                                <TableRow
+                                    key={patient.id}
+                                    sx={{
+                                        backgroundColor:
+                                            index % 2 === 0
+                                                ? "#f5f5f5"
+                                                : "white",
+                                    }}
+                                >
+                                    <TableCell>{patient.id}</TableCell>
+                                    <TableCell>{patient.name}</TableCell>
+                                    <TableCell>{patient.dob}</TableCell>
+                                    <TableCell>{patient.address}</TableCell>
+                                    <TableCell>{patient.enteredDate}</TableCell>
+                                    <TableCell>{patient.doctorName}</TableCell>
+                                    <TableCell>{patient.diagnosis}</TableCell>
                                     <TableCell>
-                                        <strong>Patient ID</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        <strong>Patient Name</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        <strong>DOB</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        <strong>Address</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        <strong>Date (Entered)</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        <strong>Doctor Name</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        <strong>Diagnosis</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        <strong>View</strong>
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {filteredPatients.map((patient, index) => (
-                                    <TableRow
-                                        key={patient.id}
-                                        sx={{
-                                            backgroundColor:
-                                                index % 2 === 0
-                                                    ? "#f5f5f5"
-                                                    : "white",
-                                        }}
-                                    >
-                                        <TableCell>{patient.id}</TableCell>
-                                        <TableCell>{patient.name}</TableCell>
-                                        <TableCell>{patient.dob}</TableCell>
-                                        <TableCell>{patient.address}</TableCell>
-                                        <TableCell>
-                                            {patient.enteredDate}
-                                        </TableCell>
-                                        <TableCell>
-                                            {patient.doctorName}
-                                        </TableCell>
-                                        <TableCell>
-                                            {patient.diagnosis}
-                                        </TableCell>
-                                        <TableCell>
-                                            <Link
-                                                to={`/patients/patient/${patient.id}`}
-                                                style={{
-                                                    textDecoration: "none",
+                                        <Link
+                                            to={`/patients/patient/${patient.id}`}
+                                            style={{
+                                                textDecoration: "none",
+                                            }}
+                                        >
+                                            <Button
+                                                variant="contained"
+                                                color="success"
+                                                size="small"
+                                                startIcon={<RemoveRedEyeIcon />}
+                                                sx={{
+                                                    textTransform: "none",
                                                 }}
                                             >
-                                                <Button
-                                                    variant="contained"
-                                                    color="success"
-                                                    size="small"
-                                                    startIcon={
-                                                        <RemoveRedEyeIcon />
-                                                    }
-                                                    sx={{
-                                                        textTransform: "none",
-                                                    }}
-                                                >
-                                                    View
-                                                </Button>
-                                            </Link>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Box>
+                                                View
+                                            </Button>
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Box>
         </Box>
     );

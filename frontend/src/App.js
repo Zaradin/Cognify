@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Layout from "./components/layout/index.js";
 import HomePage from "./pages/homePage.js";
 import LoginPage from "./pages/loginPage.js";
 import DashboardPage from "./pages/dashboardPage.js";
@@ -13,15 +14,25 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
+                {/* Routes that do not use Layout */}
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/patients" element={<PatientsPage />} />
-                <Route
-                    path="/patients/patient"
-                    element={<Navigate to="/patients" />}
-                />
-                <Route path="/patients/patient/:id" element={<PatientPage />} />
+
+                {/* Routes that should use Layout */}
+                <Route path="/" element={<Layout />}>
+                    <Route path="dashboard" element={<DashboardPage />} />
+                    <Route path="patients" element={<PatientsPage />} />
+                    <Route
+                        path="patients/patient"
+                        element={<Navigate to="/patients" />}
+                    />
+                    <Route
+                        path="patients/patient/:id"
+                        element={<PatientPage />}
+                    />
+                </Route>
+
+                {/* Catch-all route */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </BrowserRouter>
