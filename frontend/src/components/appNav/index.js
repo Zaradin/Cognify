@@ -170,7 +170,7 @@ function AppNav() {
                                     onClick={() => navigate(path)}
                                     sx={{
                                         backgroundColor:
-                                            location.pathname === path
+                                            location.pathname.startsWith(path)
                                                 ? "#f0f0f0"
                                                 : "inherit",
                                     }}

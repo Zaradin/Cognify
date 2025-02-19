@@ -15,6 +15,7 @@ import {
     Paper,
     Divider,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import DynamicBreadcrumbs from "../components/breadcrumbs";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
@@ -303,15 +304,26 @@ const PatientsPage = () => {
                                             {patient.diagnosis}
                                         </TableCell>
                                         <TableCell>
-                                            <Button
-                                                variant="contained"
-                                                color="success"
-                                                size="small"
-                                                startIcon={<RemoveRedEyeIcon />}
-                                                sx={{ textTransform: "none" }}
+                                            <Link
+                                                to={`/patients/patient/${patient.id}`}
+                                                style={{
+                                                    textDecoration: "none",
+                                                }}
                                             >
-                                                View
-                                            </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    color="success"
+                                                    size="small"
+                                                    startIcon={
+                                                        <RemoveRedEyeIcon />
+                                                    }
+                                                    sx={{
+                                                        textTransform: "none",
+                                                    }}
+                                                >
+                                                    View
+                                                </Button>
+                                            </Link>
                                         </TableCell>
                                     </TableRow>
                                 ))}
