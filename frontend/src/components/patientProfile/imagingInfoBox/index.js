@@ -1,6 +1,5 @@
 import {
     Typography,
-    Divider,
     Button,
     Table,
     TableBody,
@@ -39,7 +38,6 @@ const ImagingInfo = ({ patientData }) => {
             >
                 Imaging History
             </Typography>
-            <Divider sx={{ mb: 2 }} />
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>

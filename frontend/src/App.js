@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Layout from "./components/layout/index.js";
 import HomePage from "./pages/homePage.js";
 import LoginPage from "./pages/loginPage.js";
+import SignUpPage from "./pages/signUpPage.js";
 import DashboardPage from "./pages/dashboardPage.js";
 import PatientsPage from "./pages/patientsPage.js";
 import PatientPage from "./pages/patientProfilePage.js";
@@ -17,6 +18,7 @@ function App() {
                 {/* Routes that do not use Layout */}
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
 
                 {/* Routes that should use Layout */}
                 <Route path="/" element={<Layout />}>

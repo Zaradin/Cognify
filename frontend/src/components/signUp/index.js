@@ -1,35 +1,43 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     Box,
+    Typography,
+    TextField,
     Button,
     IconButton,
     InputAdornment,
-    TextField,
-    Typography,
+    Link,
 } from "@mui/material";
-import { Visibility, VisibilityOff, Close } from "@mui/icons-material";
+import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import brainImage from "../../images/Brain.svg";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleSignup = (e) => {
         e.preventDefault();
-        if (!email || !password) {
+
+        if (!email || !password || !confirmPassword) {
             setError("All fields are required");
             return;
         }
-        // TODO: Add authentication logic here
-        console.log("Logging in with:", { email, password });
-    };
 
-    const handleSignupRedirect = () => {
-        navigate("/signup"); // Redirect to the signup page (adjust path as needed)
+        if (password !== confirmPassword) {
+            setError("Passwords do not match");
+            return;
+        }
+
+        // TODO: Add signup logic here (e.g., API call)
+        console.log("Signing up with:", { email, password });
+        // After successful signup, navigate to the login page
+        navigate("/login");
     };
 
     return (
@@ -56,10 +64,10 @@ const Login = () => {
             </IconButton>
             <Box
                 component="form"
-                onSubmit={handleLogin}
+                onSubmit={handleSignup}
                 sx={{
                     width: 300,
-                    maxHeight: 460,
+                    height: 460,
                     p: 3,
                     border: "1px solid #ddd",
                     borderRadius: 2,
@@ -67,12 +75,14 @@ const Login = () => {
                     backgroundColor: "#fff",
                 }}
             >
-                {/* Logo and Company Name inside the box */}
+                {/* Logo and Company Name */}
                 <Box
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
-                    sx={{ marginBottom: 3 }}
+                    sx={{
+                        marginBottom: 3,
+                    }}
                 >
                     <Box
                         component="img"
@@ -80,7 +90,7 @@ const Login = () => {
                         alt="Cognify Logo"
                         sx={{
                             height: 60,
-                            marginRight: 1, // Space between logo and text
+                            marginRight: 1,
                         }}
                     />
                     <Typography
@@ -94,8 +104,9 @@ const Login = () => {
                     </Typography>
                 </Box>
 
+                {/* Signup Form Title */}
                 <Typography variant="h5" mb={2} textAlign="center">
-                    Login
+                    Sign Up
                 </Typography>
 
                 {error && (
@@ -144,6 +155,37 @@ const Login = () => {
                     }}
                 />
 
+                <TextField
+                    label="Confirm Password"
+                    type={showConfirmPassword ? "text" : "password"}
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() =>
+                                        setShowConfirmPassword(
+                                            !showConfirmPassword
+                                        )
+                                    }
+                                    edge="end"
+                                >
+                                    {showConfirmPassword ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+
                 <Button
                     type="submit"
                     variant="contained"
@@ -151,23 +193,19 @@ const Login = () => {
                     fullWidth
                     sx={{ mt: 2 }}
                 >
-                    Login
+                    Sign Up
                 </Button>
 
-                {/* Signup link */}
-                <Box mt={2} textAlign="center">
+                {/* Bottom Link to Login */}
+                <Box mt={3} textAlign="center">
                     <Typography variant="body2">
-                        Don't have an account?{" "}
-                        <Button
-                            onClick={handleSignupRedirect}
-                            sx={{
-                                textTransform: "none",
-                                padding: 0,
-                                color: "primary.main",
-                            }}
+                        Already have an account?{" "}
+                        <Link
+                            onClick={() => navigate("/login")}
+                            sx={{ cursor: "pointer", color: "#1976d2" }}
                         >
-                            Signup here
-                        </Button>
+                            Login here
+                        </Link>
                     </Typography>
                 </Box>
             </Box>
@@ -175,4 +213,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;

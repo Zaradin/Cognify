@@ -13,7 +13,7 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/cognify", cognifyRouter);
+app.use("/api/", cognifyRouter);
 
 app.use(defaultErrHandler);
 
