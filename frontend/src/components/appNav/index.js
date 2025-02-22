@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -20,8 +20,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/Person";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SettingsIcon from "@mui/icons-material/Settings";
-
+import { useSnackbar } from "../../contexts/snackbarContext";
 import brainImageWhite from "../../images/Brain-white.svg";
+import { AuthContext } from "../../contexts/authContext";
 
 const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
@@ -31,6 +32,8 @@ const menuItems = [
 ];
 
 function AppNav() {
+    const { showSnackbar } = useSnackbar();
+
     const [user, setUser] = useState(null);
 
     const location = useLocation();
@@ -40,6 +43,14 @@ function AppNav() {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
+    const { signout } = useContext(AuthContext);
+
+    const handleSignOut = () => {
+        signout();
+        showSnackbar("Logged out successfully!", "success");
+        navigate("/login");
+    };
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -204,9 +215,7 @@ function AppNav() {
                             <MenuItem onClick={handleMenuClose}>
                                 Account Settings
                             </MenuItem>
-                            <MenuItem onClick={handleMenuClose}>
-                                Logout
-                            </MenuItem>
+                            <MenuItem onClick={handleSignOut}>Logout</MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>
