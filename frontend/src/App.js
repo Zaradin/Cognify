@@ -7,6 +7,7 @@ import DashboardPage from "./pages/dashboardPage.js";
 import PatientsPage from "./pages/patientsPage.js";
 import PatientPage from "./pages/patientProfilePage.js";
 import AuthContextProvider from "./contexts/authContext.js";
+import ProtectedRoutes from "./components/protectedRoutes/protectedRoutes.js";
 import { SnackbarProvider } from "./contexts/snackbarContext.js";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
@@ -26,19 +27,25 @@ function App() {
 
                         {/* Routes that should use Layout */}
                         <Route path="/" element={<Layout />}>
-                            <Route
-                                path="dashboard"
-                                element={<DashboardPage />}
-                            />
-                            <Route path="patients" element={<PatientsPage />} />
-                            <Route
-                                path="patients/patient"
-                                element={<Navigate to="/patients" />}
-                            />
-                            <Route
-                                path="patients/patient/:id"
-                                element={<PatientPage />}
-                            />
+                            {/* Protected Auth Routes should be within this */}
+                            <Route element={<ProtectedRoutes />}>
+                                <Route
+                                    path="dashboard"
+                                    element={<DashboardPage />}
+                                />
+                                <Route
+                                    path="patients"
+                                    element={<PatientsPage />}
+                                />
+                                <Route
+                                    path="patients/patient"
+                                    element={<Navigate to="/patients" />}
+                                />
+                                <Route
+                                    path="patients/patient/:id"
+                                    element={<PatientPage />}
+                                />
+                            </Route>
                         </Route>
 
                         {/* Catch-all route */}
