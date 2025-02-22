@@ -9,11 +9,15 @@ import {
     Link,
     MenuItem,
 } from "@mui/material";
+import { signUp } from "../../auth/auth";
 import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import brainImage from "../../images/Brain.svg";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "../../contexts/snackbarContext";
 
 const Signup = () => {
+    const { showSnackbar } = useSnackbar();
+
     const [title, setTitle] = useState("");
     const [accountType, setAccountType] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -26,7 +30,7 @@ const Signup = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
 
         if (
@@ -45,15 +49,22 @@ const Signup = () => {
             return;
         }
 
-        console.log("Signing up with:", {
-            title,
-            accountType,
-            firstName,
-            lastName,
-            email,
-            password,
-        });
-        navigate("/login");
+        // try create account
+        try {
+            await signUp(
+                email,
+                password,
+                title,
+                accountType,
+                firstName,
+                lastName
+            );
+            navigate("/login");
+            showSnackbar("Account created successfully!", "success");
+        } catch (error) {
+            setError(error.message);
+            showSnackbar("Sign-up failed: Please try again!", "error");
+        }
     };
 
     return (

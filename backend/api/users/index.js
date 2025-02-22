@@ -1,8 +1,8 @@
 import express from "express";
-import User from "./userModel";
+import User from "./userModel.js";
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
-import { authenticate } from "../../authenticate/index";
+import authenticate from "../../authenticate/index.js";
 
 const router = express.Router(); // eslint-disable-line
 
@@ -10,7 +10,7 @@ const router = express.Router(); // eslint-disable-line
 // eslint-disable
 router.get("/", async (req, res) => {
     // eslint-disable-line
-    const users = await User.find();
+    const users = await userModel.find();
     res.status(200).json(users);
 });
 
@@ -20,10 +20,13 @@ router.post(
     asyncHandler(async (req, res) => {
         try {
             // Check if either email or username and password are present in the body
-            if ((!req.body.email && !req.body.username) || !req.body.password) {
+            if (
+                (!req.body.email && !req.body.firstname && !req.body.surname) ||
+                !req.body.password
+            ) {
                 return res.status(400).json({
                     success: false,
-                    msg: "Username/Email and password are required.",
+                    msg: "First Name, Surname, Email, and password are required.",
                 });
             }
 
