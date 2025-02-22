@@ -11,4 +11,12 @@ router.get(
     })
 );
 
+router.post(
+    "/createPatient",
+    asyncHandler(async (req, res) => {
+        const hello = { message: "Hello, There" };
+        res.json(hello);
+    })
+);
+
 export default router;
