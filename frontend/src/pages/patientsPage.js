@@ -15,8 +15,10 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { useSnackbar } from "../contexts/snackbarContext";
 
 const PatientsPage = () => {
+    const { showSnackbar } = useSnackbar();
     const [searchParams, setSearchParams] = useState({
         patientId: "",
         patientName: "",
@@ -121,6 +123,12 @@ const PatientsPage = () => {
                     color="primary"
                     size="small"
                     sx={{ textTransform: "none" }}
+                    onClick={() =>
+                        showSnackbar(
+                            "Create Patient Button Clicked!",
+                            "success"
+                        )
+                    }
                 >
                     Create Patient
                 </Button>
