@@ -7,12 +7,17 @@ import {
     IconButton,
     InputAdornment,
     Link,
+    MenuItem,
 } from "@mui/material";
 import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import brainImage from "../../images/Brain.svg";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+    const [title, setTitle] = useState("");
+    const [accountType, setAccountType] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,7 +29,13 @@ const Signup = () => {
     const handleSignup = (e) => {
         e.preventDefault();
 
-        if (!email || !password || !confirmPassword) {
+        if (
+            !email ||
+            !password ||
+            !confirmPassword ||
+            !firstName ||
+            !lastName
+        ) {
             setError("All fields are required");
             return;
         }
@@ -34,9 +45,14 @@ const Signup = () => {
             return;
         }
 
-        // TODO: Add signup logic here (e.g., API call)
-        console.log("Signing up with:", { email, password });
-        // After successful signup, navigate to the login page
+        console.log("Signing up with:", {
+            title,
+            accountType,
+            firstName,
+            lastName,
+            email,
+            password,
+        });
         navigate("/login");
     };
 
@@ -49,7 +65,6 @@ const Signup = () => {
             height="100vh"
             position="relative"
         >
-            {/* Close Button (Top Right) */}
             <IconButton
                 onClick={() => navigate("/")}
                 sx={{
@@ -66,8 +81,7 @@ const Signup = () => {
                 component="form"
                 onSubmit={handleSignup}
                 sx={{
-                    width: 300,
-                    height: 460,
+                    width: 320,
                     p: 3,
                     border: "1px solid #ddd",
                     borderRadius: 2,
@@ -75,36 +89,26 @@ const Signup = () => {
                     backgroundColor: "#fff",
                 }}
             >
-                {/* Logo and Company Name */}
                 <Box
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
-                    sx={{
-                        marginBottom: 3,
-                    }}
+                    sx={{ marginBottom: 3 }}
                 >
                     <Box
                         component="img"
                         src={brainImage}
                         alt="Cognify Logo"
-                        sx={{
-                            height: 60,
-                            marginRight: 1,
-                        }}
+                        sx={{ height: 60, marginRight: 1 }}
                     />
                     <Typography
                         variant="h4"
-                        sx={{
-                            color: "black",
-                            marginLeft: 1,
-                        }}
+                        sx={{ color: "black", marginLeft: 1 }}
                     >
                         Cognify
                     </Typography>
                 </Box>
 
-                {/* Signup Form Title */}
                 <Typography variant="h5" mb={2} textAlign="center">
                     Sign Up
                 </Typography>
@@ -114,6 +118,56 @@ const Signup = () => {
                         {error}
                     </Typography>
                 )}
+
+                <TextField
+                    select
+                    label="Title"
+                    fullWidth
+                    margin="normal"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                >
+                    <MenuItem value="Mr">Mr</MenuItem>
+                    <MenuItem value="Ms">Ms</MenuItem>
+                    <MenuItem value="Mrs">Mrs</MenuItem>
+                    <MenuItem value="Dr">Dr</MenuItem>
+                </TextField>
+
+                <TextField
+                    select
+                    label="Account Type"
+                    fullWidth
+                    margin="normal"
+                    value={accountType}
+                    onChange={(e) => setAccountType(e.target.value)}
+                >
+                    <MenuItem value="Student">Student</MenuItem>
+                    <MenuItem value="Researcher">Researcher</MenuItem>
+                    <MenuItem value="Geriatrician">Geriatrician</MenuItem>
+                    <MenuItem value="Physician">Physician</MenuItem>
+                    <MenuItem value="Neurosurgeon">Neurosurgeon</MenuItem>
+                </TextField>
+
+                <Box display="flex" gap={1}>
+                    <TextField
+                        label="First Name"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                    />
+                    <TextField
+                        label="Last Name"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                    />
+                </Box>
 
                 <TextField
                     label="Email"
@@ -196,7 +250,6 @@ const Signup = () => {
                     Sign Up
                 </Button>
 
-                {/* Bottom Link to Login */}
                 <Box mt={3} textAlign="center">
                     <Typography variant="body2">
                         Already have an account?{" "}

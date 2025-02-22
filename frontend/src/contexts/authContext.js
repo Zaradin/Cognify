@@ -25,11 +25,19 @@ const AuthContextProvider = (props) => {
         }
     };
 
-    const register = async (email, password, honorific, firstname, surname) => {
+    const register = async (
+        email,
+        password,
+        title,
+        type,
+        firstname,
+        surname
+    ) => {
         const result = await signUp(
             email,
             password,
-            honorific,
+            title,
+            type,
             firstname,
             surname
         );

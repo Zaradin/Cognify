@@ -26,7 +26,8 @@ export const logIn = async (email, password) => {
 export const signUp = async (
     email,
     password,
-    honorific,
+    title,
+    type,
     firstname,
     surname
 ) => {
@@ -39,7 +40,8 @@ export const signUp = async (
                 body: JSON.stringify({
                     email,
                     password,
-                    honorific,
+                    title,
+                    type,
                     firstname,
                     surname,
                 }),

@@ -58,8 +58,7 @@ const Login = () => {
                 component="form"
                 onSubmit={handleLogin}
                 sx={{
-                    width: 300,
-                    maxHeight: 460,
+                    width: 320,
                     p: 3,
                     border: "1px solid #ddd",
                     borderRadius: 2,
