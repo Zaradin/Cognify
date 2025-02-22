@@ -49,7 +49,7 @@ router.post(
 router.get("/userdetails", authenticate, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select(
-            "email createdAt updatedAt"
+            "title firstname surname type email createdAt updatedAt"
         );
 
         if (!user) {
@@ -73,20 +73,20 @@ router.get("/userdetails", authenticate, async (req, res) => {
 });
 
 // Update a user
-router.put("/:id", async (req, res) => {
-    if (req.body._id) delete req.body._id;
-    const result = await User.updateOne(
-        {
-            _id: req.params.id,
-        },
-        req.body
-    );
-    if (result.matchedCount) {
-        res.status(200).json({ code: 200, msg: "User Updated Sucessfully" });
-    } else {
-        res.status(404).json({ code: 404, msg: "Unable to Update User" });
-    }
-});
+// router.put("/:id", async (req, res) => {
+//     if (req.body._id) delete req.body._id;
+//     const result = await User.updateOne(
+//         {
+//             _id: req.params.id,
+//         },
+//         req.body
+//     );
+//     if (result.matchedCount) {
+//         res.status(200).json({ code: 200, msg: "User Updated Sucessfully" });
+//     } else {
+//         res.status(404).json({ code: 404, msg: "Unable to Update User" });
+//     }
+// });
 
 async function registerUser(req, res) {
     // Add input validation logic here

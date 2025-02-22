@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
     Box,
     Button,
@@ -7,25 +7,39 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
+import { AuthContext } from "../../contexts/authContext.js";
 import { Visibility, VisibilityOff, Close } from "@mui/icons-material";
 import brainImage from "../../images/Brain.svg";
+import { useSnackbar } from "../../contexts/snackbarContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const context = useContext(AuthContext);
+
+    const { showSnackbar } = useSnackbar();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        setError("");
         if (!email || !password) {
             setError("All fields are required");
             return;
         }
-        // TODO: Add authentication logic here
-        console.log("Logging in with:", { email, password });
+        try {
+            await context.authenticate(email, password);
+            navigate("/dashboard");
+            showSnackbar("Logged in successfully!", "success");
+        } catch (error) {
+            console.error("Login failed:", error.message);
+            setError(error.message);
+            showSnackbar("Login failed: Please try again!", "error");
+        }
     };
 
     const handleSignupRedirect = () => {

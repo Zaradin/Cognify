@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -31,6 +31,8 @@ const menuItems = [
 ];
 
 function AppNav() {
+    const [user, setUser] = useState(null);
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -38,6 +40,64 @@ function AppNav() {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const token = localStorage.getItem("token");
+            console.log("Retrieved Token:", token); // Debug: Check if the token is correctly retrieved from localStorage
+
+            if (token) {
+                try {
+                    console.log("Making request to fetch user details...");
+
+                    const userDetailsResponse = await fetch(
+                        `${process.env.REACT_APP_NODE_API_ENDPOINT_URL}/api/users/userdetails`,
+                        {
+                            headers: {
+                                Authorization: `${token}`,
+                            },
+                        }
+                    );
+
+                    console.log("Response status:", userDetailsResponse.status); // Debug: Check the response status
+
+                    if (userDetailsResponse.ok) {
+                        const data = await userDetailsResponse.json();
+                        console.log("User details fetched:", data); // Debug: Check the user data returned from the API
+                        setUser(data); // Update user state with fetched user details
+                    } else {
+                        console.error(
+                            "Failed to fetch user details:",
+                            userDetailsResponse.statusText
+                        );
+                    }
+                } catch (err) {
+                    console.error("Error fetching user details:", err);
+                }
+            } else {
+                console.error("No token found in localStorage");
+            }
+        };
+
+        fetchUser();
+    }, []); // Empty dependency array to fetch only once when the component mounts
+
+    if (!user) {
+        return (
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                }}
+            >
+                <Typography>Loading user details...</Typography>
+            </Box>
+        );
+    }
+
+    console.log("USER " + JSON.stringify(user));
 
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -104,13 +164,14 @@ function AppNav() {
                                     variant="body1"
                                     sx={{ fontWeight: "bold" }}
                                 >
-                                    Dr. John Doe
+                                    {user.title}. {user.firstname}{" "}
+                                    {user.surname}
                                 </Typography>
                                 <Typography
                                     variant="body2"
                                     sx={{ color: "lightgray" }}
                                 >
-                                    Neurosurgeon
+                                    {user.type}
                                 </Typography>
                             </Box>
                             <Avatar
@@ -122,7 +183,8 @@ function AppNav() {
                                     ml: 3,
                                 }}
                             >
-                                J
+                                {user.firstname.charAt(0)}
+                                {user.surname.charAt(0)}
                             </Avatar>
                             <ExpandMoreIcon />
                         </Button>
