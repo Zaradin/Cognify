@@ -15,7 +15,6 @@ export const logIn = async (email, password) => {
         }
 
         const data = await response.json();
-        console.log("token: " + data.token);
         localStorage.setItem("token", data.token); // Store JWT
         return data;
     } catch (err) {

@@ -28,9 +28,10 @@ const PatientSchema = new mongoose.Schema(
             required: true,
             validate: {
                 validator: function (v) {
-                    return /^[0-9]{13}$/.test(v);
+                    return /^[0-9]{7,15}$/.test(v);
                 },
-                message: "Phone number must be 10 digits.",
+                message:
+                    "Patient Phone number must be between 7 and 15 digits.",
             },
         },
         email: {
@@ -52,9 +53,9 @@ const PatientSchema = new mongoose.Schema(
             required: true,
             validate: {
                 validator: function (v) {
-                    return /^[0-9]{13}$/.test(v);
+                    return /^[0-9]{7,15}$/.test(v);
                 },
-                message: "GP phone number must be 10 digits.",
+                message: "GP Phone number must be between 7 and 15 digits.",
             },
         },
     },
